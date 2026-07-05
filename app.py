@@ -285,9 +285,8 @@ else:
         gcol, bcol = st.columns([1, 1])
         with gcol:
             readiness_score = readiness.get("readiness_score")
-readiness_score = float(readiness_score) if readiness_score is not None else 0.0
-
-fig = go.Figure(go.Indicator(
+            readiness_score = float(readiness_score) if readiness_score is not None else 0.0
+            fig = go.Figure(go.Indicator(
                 mode="gauge+number", value=readiness_score,
                 title={"text": "Career Readiness"},
                 gauge={"axis": {"range": [0, 100]},
