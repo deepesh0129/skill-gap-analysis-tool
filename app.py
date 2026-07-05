@@ -284,28 +284,34 @@ else:
 
         gcol, bcol = st.columns([1, 1])
         with gcol:
-            raw_readiness = readiness.get("readiness_score")
-            try:
-                readiness_value = float(raw_readiness)
-            except (TypeError, ValueError):
-                readiness_value = 0.0
+    raw_readiness = readiness.get("readiness_score")
 
-            fig = go.Figure()
+    try:
+        readiness_value = float(raw_readiness)
+    except (TypeError, ValueError):
+        readiness_value = 0.0
 
-fig.add_trace(
-    go.Indicator(
-        mode="gauge+number",
-        value=readiness_value,
-        title={"text": "Career Readiness"},
-        gauge={"axis": {"range": [0, 100]},
-               "bar": {"color": "blue"},
-               "steps": [
-                   {"range": [0, 45], "color": "lightcoral"},
-                   {"range": [45, 75], "color": "khaki"},
-                   {"range": [75, 100], "color": "lightgreen"},
-               ]}))
-fig.update_layout(height=350)
-st.plotly_chart(fig, use_container_width=True)
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Indicator(
+            mode="gauge+number",
+            value=readiness_value,
+            title={"text": "Career Readiness"},
+            gauge={
+                "axis": {"range": [0, 100]},
+                "bar": {"color": "blue"},
+                "steps": [
+                    {"range": [0, 45], "color": "lightcoral"},
+                    {"range": [45, 75], "color": "khaki"},
+                    {"range": [75, 100], "color": "lightgreen"},
+                ],
+            },
+        )
+    )
+
+    fig.update_layout(height=350)
+    st.plotly_chart(fig, use_container_width=True)
         with bcol:
             skills_df = pd.DataFrame({
                 "Skill": list(r["required_skills"].keys()),
