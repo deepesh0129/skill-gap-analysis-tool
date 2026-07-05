@@ -141,7 +141,7 @@ else:
         st.image("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200",
                   use_container_width=True) if False else None
         if st.button("🚀 Start Assessment", type="primary"):
-            go("name")
+            goto("name")
             st.rerun()
 
     # --- Step 2: Name -----------------------------------------------
@@ -150,11 +150,11 @@ else:
         name = st.text_input("Full Name", value=st.session_state.form.get("name", ""))
         c1, c2 = st.columns([1, 5])
         if c1.button("← Back"):
-            go("welcome"); st.rerun()
+            goto("welcome"); st.rerun()
         if c2.button("Next →", type="primary"):
             if name.strip():
                 st.session_state.form["name"] = name.strip()
-                go("department"); st.rerun()
+                goto("department"); st.rerun()
             else:
                 st.warning("Please enter your name.")
 
@@ -166,10 +166,10 @@ else:
                              if "department" in st.session_state.form else 0)
         c1, c2 = st.columns([1, 5])
         if c1.button("← Back"):
-            go("name"); st.rerun()
+            goto("name"); st.rerun()
         if c2.button("Next →", type="primary"):
             st.session_state.form["department"] = dept
-            go("status"); st.rerun()
+            goto("status"); st.rerun()
 
     # --- Step 4: Status -----------------------------------------------
     elif step == "status":
@@ -179,10 +179,10 @@ else:
                                if "status" in st.session_state.form else 0)
         c1, c2 = st.columns([1, 5])
         if c1.button("← Back"):
-            go("department"); st.rerun()
+            goto("department"); st.rerun()
         if c2.button("Next →", type="primary"):
             st.session_state.form["status"] = status
-            go("role"); st.rerun()
+            goto("role"); st.rerun()
 
     # --- Step 5: Target Role -----------------------------------------
     elif step == "role":
@@ -197,10 +197,10 @@ else:
                                 sorted(skills.items(), key=lambda x: -x[1])))
         c1, c2 = st.columns([1, 5])
         if c1.button("← Back"):
-            go("status"); st.rerun()
+            goto("status"); st.rerun()
         if c2.button("Next →", type="primary"):
             st.session_state.form["target_role"] = role
-            go("skills"); st.rerun()
+            goto("skills"); st.rerun()
 
     # --- Step 6: Skills checklist -----------------------------------
     elif step == "skills":
@@ -266,7 +266,7 @@ else:
                 project_recs=project_recs, cert_recs=cert_recs, readiness=readiness,
                 required_skills=required_skills, peer_position=peer_position,
             )
-        go("results")
+        goto("results")
         st.rerun()
 
     # --- Results screen -----------------------------------------------
