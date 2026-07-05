@@ -284,18 +284,15 @@ else:
 
         gcol, bcol = st.columns([1, 1])
         with gcol:
-            readiness_score = readiness.get("readiness_score")
-            readiness_score = float(readiness_score) if readiness_score is not None else 0.0
+            raw_readiness = readiness.get("readiness_score")
+            try:
+                readiness_value = float(raw_readiness)
+            except (TypeError, ValueError):
+                readiness_value = 0.0
+
             fig = go.Figure(go.Indicator(
-                mode="gauge+number", value=readiness_score,
+                mode="gauge+number", value=readiness_value,
                 title={"text": "Career Readiness"},
-                gauge={"axis": {"range": [0, 100]},
-                       "bar": {"color": "#2563eb"},
-                       "steps": [
-                           {"range": [0, 45], "color": "#fee2e2"},
-                           {"range": [45, 75], "color": "#fef9c3"},
-                           {"range": [75, 100], "color": "#dcfce7"},
-                       ]}))
             st.plotly_chart(fig, use_container_width=True)
         with bcol:
             skills_df = pd.DataFrame({
