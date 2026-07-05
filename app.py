@@ -58,7 +58,7 @@ AGENTS = dict(
 )
 
 
-def go(step):
+def goto(step):
     st.session_state.step = step
 
 
@@ -223,10 +223,10 @@ else:
 
         c1, c2 = st.columns([1, 5])
         if c1.button("← Back"):
-            go("role"); st.rerun()
+            goto("role"); st.rerun()
         if c2.button("✅ Analyze My Skills", type="primary"):
             st.session_state.form["current_skills"] = selected
-            go("analyze"); st.rerun()
+            goto("analyze"); st.rerun()
 
     # --- Step 7: Run the agent pipeline ------------------------------
     elif step == "analyze":
@@ -360,6 +360,6 @@ else:
         if st.button("🔁 Run Another Assessment"):
             st.session_state.form = {}
             st.session_state.results = None
-            go("welcome")
+            goto("welcome")
             st.rerun()
 
