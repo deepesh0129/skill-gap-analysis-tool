@@ -293,6 +293,13 @@ else:
             fig = go.Figure(go.Indicator(
                 mode="gauge+number", value=readiness_value,
                 title={"text": "Career Readiness"},
+                gauge={"axis": {"range": [0, 100]},
+                       "bar": {"color": "#2563eb"},
+                       "steps": [
+                           {"range": [0, 45], "color": "#fee2e2"},
+                           {"range": [45, 75], "color": "#fef9c3"},
+                           {"range": [75, 100], "color": "#dcfce7"},
+                       ]}))
             st.plotly_chart(fig, use_container_width=True)
         with bcol:
             skills_df = pd.DataFrame({
